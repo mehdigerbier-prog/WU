@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>With U — Traverser le deuil avec douceur</title>
+<meta name="description" content="Un compagnon numérique pour traverser le deuil et préserver les souvenirs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf8f4;--cream2:#f3efe7;--cream3:#ece7db;
+  --stone:#ddd8cc;--stone2:#c8c2b4;
+  --brown:#7a6a58;--brown2:#9a8a78;
+  --green:#4a7048;--green2:#5d8a5b;--green3:#3a5838;
+  --green-pale:#eef4ed;--green-pale2:#e2ede1;
+  --blush:#c4756a;--blush-pale:#fdf0ee;--blush-light:#f5ddd9;
+  --text:#1e1810;--text2:#5a4a38;--text3:#8a7a68;
+  --r:14px;--rs:10px;--shadow:0 1px 3px rgba(0,0,0,.06)
+}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:15px;line-height:1.6}
+h1,h2,h3,h4{font-family:'Crimson Pro',Georgia,serif;font-weight:300;line-height:1.1}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+textarea,input,select{font-family:inherit}
+img{max-width:100%}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--stone2);border-radius:4px}
+
+/* ── UTILITY ── */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.fade-in{animation:fadeIn .3s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.slide-up{animation:slideUp .28s ease-out}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.pulse{animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── NAV ── */
+#nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;border-bottom:0.5px solid var(--stone);background:rgba(250,248,244,.9);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Crimson Pro',serif;font-size:22px;letter-spacing:-.3px;cursor:pointer;color:var(--text)}
+.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-link{font-size:13px;color:var(--text2);cursor:pointer;transition:color .2s;background:none;border:none;padding:4px}
+.nav-link:hover{color:var(--text)}
+.btn-nav{background:var(--green);color:#fff;border:none;border-radius:var(--rs);padding:8px 18px;font-size:13px;transition:opacity .2s}
+.btn-nav:hover{opacity:.88}
+@media(max-width:600px){.nav-links .nav-link{display:none}}
+
+/* ── BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;border:none;border-radius:var(--r);padding:13px 26px;font-size:14px;font-weight:500;transition:opacity .18s,transform .1s;white-space:nowrap}
+.btn-primary:hover{opacity:.88}
+.btn-primary:active{transform:scale(.97)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--text2);border:0.5px solid var(--stone2);border-radius:var(--r);padding:13px 26px;font-size:14px;transition:all .18s}
+.btn-outline:hover{border-color:var(--brown2);color:var(--text)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:transparent;border:none;color:var(--text2);border-radius:var(--rs);padding:8px 14px;font-size:13px;transition:all .18s}
+.btn-ghost:hover{background:var(--cream2);color:var(--text)}
+.btn-sm{padding:8px 16px;font-size:13px;border-radius:var(--rs)}
+.btn-cancel{flex:1;background:none;border:0.5px solid var(--stone2);border-radius:var(--rs);padding:11px;font-size:14px;color:var(--text2);transition:all .2s}
+.btn-cancel:hover{border-color:var(--brown2);color:var(--text)}
+.btn-save{flex:1;background:var(--green);color:#fff;border:none;border-radius:var(--rs);padding:11px;font-size:14px;font-weight:500;transition:opacity .2s}
+.btn-save:hover{opacity:.88}
+.btn-row{display:flex;gap:10px;margin-top:12px}
+
+/* ── FORM ELEMENTS ── */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var(--text)}
+.form-label span{font-weight:300;color:var(--text3)}
+.input{width:100%;background:var(--cream2);border:0.5px solid var(--stone2);border-radius:var(--rs);padding:10px 14px;font-size:14px;color:var(--text);outline:none;transition:border-color .2s}
+.input:focus{border-color:var(--green)}
+.input::placeholder{color:var(--text3)}
+textarea.input{resize:none;line-height:1.6}
+select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' viewBox='0 0 12 8'%3E%3Cpath stroke='%238a7a68' stroke-width='1.5' stroke-linecap='round' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+
+/* ── CARDS ── */
+.card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
+.card-sm{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:14px 18px;box-shadow:var(--shadow)}
+.card-hover{transition:border-color .2s,box-shadow .2s;cursor:pointer}
+.card-hover:hover{border-color:var(--brown2);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+/* ── CHIPS / TAGS ── */
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:20px;border:0.5px solid;padding:5px 12px;font-size:12px;cursor:pointer;transition:all .18s;background:var(--cream);color:var(--text2);border-color:var(--stone2)}
+.chip:hover{border-color:var(--green2);background:var(--green-pale);color:var(--green3)}
+.chip.active{border-color:var(--green2);background:var(--green-pale);color:var(--green3);font-weight:500}
+.chip-mood-overwhelmed{background:#fdf0ee;color:#7a3020;border-color:#e8c4be}
+.chip-mood-sad{background:#eef2f8;color:#2a3a60;border-color:#b8c8e8}
+.chip-mood-empty{background:#f4f2ee;color:#4a4038;border-color:#c8c2b4}
+.chip-mood-nostalgic{background:#fdf6ec;color:#6a4818;border-color:#e8d0a8}
+.chip-mood-calm{background:#ecf4f8;color:#183848;border-color:#a8c8d8}
+.chip-mood-grateful{background:#eef6ec;color:#1a4018;border-color:#a8d0a8}
+.chip-mood-peaceful{background:var(--green-pale);color:var(--green3);border-color:#c8dcc8}
+
+/* ── PAGES ── */
+.page{display:none}
+.page.active{display:block}
+
+/* ══════════════════════════
+   LANDING
+══════════════════════════ */
+#landing{background:var(--cream)}
+.hero{padding:80px 32px 64px;text-align:center;max-width:720px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;border:0.5px solid #b8d0b8;background:var(--green-pale);color:var(--green3);border-radius:20px;padding:5px 14px;font-size:12px;margin-bottom:24px}
+.hero h1{font-size:clamp(42px,8vw,72px);letter-spacing:-1.5px;margin-bottom:20px;color:var(--text);line-height:1.06}
+.hero h1 em{font-style:italic;color:var(--green2)}
+.hero p{font-size:17px;color:var(--text2);max-width:480px;margin:0 auto 36px;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.hero-note{font-size:12px;color:var(--text3)}
+
+.features{padding:0 32px 72px;max-width:960px;margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:680px){.features-grid{grid-template-columns:1fr}}
+.feat-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat-card h3{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;margin-bottom:8px;color:var(--text)}
+.feat-card p{font-size:13px;color:var(--text2);line-height:1.6}
+
+.section-values{background:var(--cream2);border-top:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);padding:64px 32px}
+.section-values-inner{max-width:720px;margin:0 auto}
+.section-values h2{font-size:clamp(28px,5vw,40px);text-align:center;margin-bottom:8px}
+.section-values-sub{font-size:14px;color:var(--text2);text-align:center;margin-bottom:36px}
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.values-grid{grid-template-columns:1fr}}
+.value-item{background:var(--cream);border:0.5px solid var(--stone);border-left:3px solid var(--green2);border-radius:0 var(--r) var(--r) 0;padding:18px}
+.value-item strong{display:block;font-size:13px;font-weight:500;margin-bottom:5px;color:var(--text)}
+.value-item p{font-size:12px;color:var(--text2);line-height:1.55}
+
+.section-voice{padding:64px 32px;max-width:760px;margin:0 auto;display:flex;gap:48px;align-items:center}
+@media(max-width:560px){.section-voice{flex-direction:column;text-align:center}}
+.voice-orb{width:100px;height:100px;border-radius:50%;background:var(--green-pale2);border:1.5px solid #b8d0b8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-voice h2{font-size:clamp(24px,4vw,32px);margin-bottom:10px}
+.section-voice p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:8px}
+.voice-note{font-size:12px;color:var(--text3)!important;margin-bottom:0!important}
+
+.section-privacy{padding:64px 32px;border-top:0.5px solid var(--stone)}
+.section-privacy-inner{max-width:700px;margin:0 auto;text-align:center}
+.section-privacy h2{font-size:clamp(28px,5vw,40px);margin-bottom:14px}
+.section-privacy p{font-size:14px;color:var(--text2);line-height:1.7;max-width:500px;margin:0 auto 28px}
+.trust-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.trust-pill{display:flex;align-items:center;gap:8px;border:0.5px solid var(--stone2);border-radius:20px;padding:8px 16px;font-size:13px;color:var(--text2);background:var(--cream)}
+.trust-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green2);flex-shrink:0}
+
+.section-cta{padding:80px 32px;text-align:center;border-top:0.5px solid var(--stone)}
+.section-cta h2{font-size:clamp(34px,6vw,56px);margin-bottom:14px;letter-spacing:-.5px}
+.section-cta h2 em{font-style:italic;color:var(--green2)}
+.section-cta p{font-size:15px;color:var(--text2);margin-bottom:32px}
+
+.crisis-bar{background:var(--blush-pale);border-top:0.5px solid var(--blush-light);padding:12px 32px;text-align:center;font-size:12px;color:#7a3020}
+.crisis-bar strong{color:#5a1810}
+
+footer{padding:28px 32px;border-top:0.5px solid var(--stone);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3)}
+.footer-logo{font-family:'Crimson Pro',serif;font-size:19px;color:var(--text)}
+.footer-logo span{color:var(--green)}
+
+/* ══════════════════════════
+   AUTH
+══════════════════════════ */
+#auth-login,#auth-register,#auth-forgot,#auth-update-pw{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.auth-box{width:100%;max-width:420px}
+.auth-box h1{font-size:clamp(28px,5vw,40px);margin-bottom:6px}
+.auth-box .auth-sub{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.6}
+.auth-link{text-align:center;margin-top:18px;font-size:13px;color:var(--text2)}
+.auth-link a{color:var(--green);cursor:pointer}
+.auth-link a:hover{text-decoration:underline}
+.input-pw-wrap{position:relative}
+.input-pw-wrap .input{padding-right:44px}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);padding:4px;cursor:pointer;display:flex;align-items:center}
+.pw-toggle:hover{color:var(--text)}
+
+/* ══════════════════════════
+   ONBOARDING
+══════════════════════════ */
+#onboarding{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.ob-box{width:100%;max-width:480px}
+.progress{display:flex;gap:5px;margin-bottom:32px}
+.progress-seg{height:3px;flex:1;border-radius:2px;background:var(--stone2);transition:background .4s}
+.progress-seg.done{background:var(--green2)}
+.ob-step{display:none}
+.ob-step.active{display:block;animation:fadeIn .28s ease-out}
+.ob-step h1{font-size:clamp(26px,5vw,36px);margin-bottom:10px}
+.ob-info-box{background:var(--green-pale);border:0.5px solid #b8d0b8;border-left:3px solid var(--green2);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin-bottom:22px;font-size:13px;color:#3a5030;line-height:1.6}
+.ob-toggle{background:var(--cream);border:0.5px solid var(--stone2);border-radius:var(--r);padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:14px;margin-bottom:20px;transition:all .2s}
+.ob-toggle.on{border-color:var(--green2);background:var(--green-pale)}
+.ob-toggle-icon{width:42px;height:42px;border-radius:10px;background:var(--cream2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.ob-toggle.on .ob-toggle-icon{background:var(--green-pale2)}
+.ob-done-icon{width:72px;height:72px;border-radius:50%;background:var(--green-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.ob-done{text-align:center}
+
+/* ══════════════════════════
+   APP SHELL
+══════════════════════════ */
+#app-page{display:none}
+#app-page.active{display:flex;flex-direction:column;height:calc(100vh - 60px)}
+.app-shell{display:flex;flex:1;overflow:hidden}
+
+/* Sidebar */
+.sidebar{width:220px;border-right:0.5px solid var(--stone);display:flex;flex-direction:column;background:var(--cream);flex-shrink:0;overflow-y:auto}
+@media(max-width:680px){.sidebar{display:none}}
+.sidebar-logo{padding:18px 20px 14px;font-family:'Crimson Pro',serif;font-size:19px;color:var(--text);border-bottom:0.5px solid var(--stone);margin-bottom:8px}
+.sidebar-logo span{color:var(--green)}
+.sidebar-nav{flex:1;padding:6px 10px}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;font-size:13px;color:var(--text2);cursor:pointer;transition:all .18s;border-left:2px solid transparent;margin-bottom:2px}
+.sidebar-item:hover{background:var(--cream2);color:var(--text)}
+.sidebar-item.active{background:var(--green-pale);color:var(--green3);border-left-color:var(--green2);font-weight:500}
+.sidebar-item svg{flex-shrink:0;opacity:.7}
+.sidebar-item.active svg{opacity:1}
+.sidebar-footer{padding:14px;border-top:0.5px solid var(--stone)}
+.sidebar-footer p{font-size:11px;color:var(--text3);line-height:1.5}
+.sidebar-logout{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:8px 12px;border-radius:10px;font-size:13px;color:var(--text3);cursor:pointer;transition:all .18s;margin-bottom:10px}
+.sidebar-logout:hover{background:var(--cream2);color:var(--text)}
+
+/* Main content */
+.main-area{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+
+/* Bottom nav mobile */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:40;background:rgba(250,248,244,.95);backdrop-filter:blur(10px);border-top:0.5px solid var(--stone);height:60px}
+@media(max-width:680px){.bottom-nav{display:flex}}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10px;color:var(--text3);cursor:pointer;transition:color .18s;border:none;background:none;padding:4px}
+.bn-item.active{color:var(--green3)}
+.mobile-pad{height:68px;display:none}
+@media(max-width:680px){.mobile-pad{display:block}}
+
+/* Sections */
+.section-page{display:none;padding:28px 32px;max-width:760px;width:100%}
+.section-page.active{display:block;animation:fadeIn .22s ease-out}
+@media(max-width:480px){.section-page{padding:20px 16px}}
+.page-header{margin-bottom:24px}
+.page-header h1{font-size:clamp(24px,4vw,34px);color:var(--text)}
+.page-header p{font-size:13px;color:var(--text2);margin-top:4px}
+.page-header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-head h2{font-size:clamp(18px,3vw,22px);color:var(--text)}
+.section-head a{font-size:12px;color:var(--green2);cursor:pointer}
+.section-head a:hover{text-decoration:underline}
+
+/* ══════════════════════════
+   DASHBOARD
+══════════════════════════ */
+.mood-card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:18px;margin-bottom:18px;box-shadow:var(--shadow)}
+.mood-label{font-size:13px;font-weight:500;color:var(--text);margin-bottom:12px}
+.mood-chips{display:flex;gap:8px;flex-wrap:wrap}
+.mood-chip-btn{border:0.5px solid var(--stone2);border-radius:20px;padding:7px 14px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .18s;background:var(--cream)}
+.mood-chip-btn:hover{border-color:var(--green2);background:var(--green-pale);color:var(--green3)}
+.mood-chip-btn.selected{border-color:var(--green2);background:var(--green-pale);color:var(--green3);font-weight:500}
+
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:480px){.quick-grid{grid-template-columns:1fr;grid-template-rows:auto}}
+.quick-card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.quick-card:hover{border-color:var(--brown2);box-shadow:0 3px 10px rgba(0,0,0,.08);transform:translateY(-1px)}
+.qc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qc-text p{font-size:13px;font-weight:500;color:var(--text);line-height:1.3}
+.qc-text span{font-size:11px;color:var(--text3)}
+
+.empty-card{border:0.5px dashed var(--stone2);border-radius:var(--r);padding:30px;text-align:center;font-size:13px;color:var(--text3)}
+.empty-card .btn-ghost{margin-top:12px;font-size:12px}
+.preview-card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:all .18s}
+.preview-card:hover{border-color:var(--brown2);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.preview-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px}
+.preview-text{font-size:13px;color:var(--text2);line-height:1.55}
+.preview-meta{font-size:11px;color:var(--text3);margin-top:8px}
+
+/* ══════════════════════════
+   CHAT
+══════════════════════════ */
+#section-chat{padding:0;max-width:100%;display:flex;flex-direction:column;height:100%;overflow:hidden}
+#section-chat.active{display:flex}
+.chat-header{padding:12px 24px;border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:space-between;background:var(--cream);flex-shrink:0}
+.chat-header h2{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--text)}
+.chat-controls{display:flex;align-items:center;gap:6px}
+.chat-status-pill{font-size:11px;color:var(--text3);background:var(--cream2);border:0.5px solid var(--stone2);border-radius:20px;padding:4px 10px;display:flex;align-items:center;gap:5px}
+.chat-status-dot{width:6px;height:6px;border-radius:50%;background:var(--stone2);transition:background .3s}
+.chat-status-dot.listening{background:#e08080;animation:pulse 1.2s infinite}
+.chat-status-dot.speaking{background:var(--green2);animation:pulse 1.8s infinite}
+.chat-status-dot.ready{background:var(--stone2)}
+
+.chat-messages{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px}
+@media(max-width:480px){.chat-messages{padding:14px 14px}}
+.chat-disclaimer{text-align:center;font-size:11px;color:var(--text3);background:var(--cream2);border:0.5px solid var(--stone);border-radius:10px;padding:8px 14px;margin-bottom:6px}
+.starters-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.starter{background:var(--cream);border:0.5px solid var(--stone2);border-radius:20px;padding:8px 14px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .18s}
+.starter:hover{border-color:var(--green2);background:var(--green-pale);color:var(--green3)}
+
+.msg-wrap{display:flex;flex-direction:column;gap:2px}
+.msg-wrap.user{align-items:flex-end}
+.msg-wrap.ai{align-items:flex-start}
+.msg-sender{font-size:11px;color:var(--text3);padding:0 4px;margin-bottom:1px}
+.msg-bubble{max-width:78%;border-radius:18px;padding:11px 16px;font-size:14px;line-height:1.65;word-break:break-word}
+.msg-bubble.ai{background:var(--cream);border:0.5px solid var(--stone2);border-top-left-radius:4px}
+.msg-bubble.user{background:var(--green);color:#fff;border-top-right-radius:4px}
+.msg-time{font-size:10px;color:var(--text3);padding:0 4px}
+.typing-bubble{background:var(--cream);border:0.5px solid var(--stone2);border-radius:18px;border-top-left-radius:4px;padding:12px 18px;display:flex;gap:5px;align-items:center;width:fit-content}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--stone2);animation:blink 1.4s infinite}
+.typing-dot:nth-child(2){animation-delay:.28s}
+.typing-dot:nth-child(3){animation-delay:.56s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+.distress-banner{background:var(--blush-pale);border:0.5px solid var(--blush-light);border-radius:var(--r);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.distress-icon{width:36px;height:36px;border-radius:50%;background:#f5ddd9;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.distress-content p{font-size:13px;color:#7a2818;line-height:1.6}
+.distress-content strong{color:#5a1810}
+.distress-close{background:none;border:none;color:#b07060;padding:4px;cursor:pointer;margin-left:auto;flex-shrink:0}
+
+.chat-input-area{flex-shrink:0;padding:12px 24px 16px;border-top:0.5px solid var(--stone);background:var(--cream)}
+@media(max-width:480px){.chat-input-area{padding:10px 12px 14px}}
+.chat-no-stt{font-size:11px;color:var(--text3);text-align:center;margin-bottom:8px}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end}
+.chat-textarea{flex:1;background:var(--cream2);border:0.5px solid var(--stone2);border-radius:var(--r);padding:10px 14px;font-size:14px;resize:none;min-height:44px;max-height:130px;color:var(--text);outline:none;transition:border-color .2s;line-height:1.5}
+.chat-textarea:focus{border-color:var(--green2)}
+.chat-btn{width:44px;height:44px;border-radius:11px;border:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;cursor:pointer}
+.chat-btn.mic{background:var(--cream2);border:0.5px solid var(--stone2);color:var(--text2)}
+.chat-btn.mic:hover{border-color:var(--brown2);color:var(--text)}
+.chat-btn.mic.on{background:#fef0ed;border-color:#e8b4ad;color:var(--blush);animation:pulse 1.4s infinite}
+.chat-btn.send{background:var(--green);color:#fff}
+.chat-btn.send:hover{opacity:.88}
+.chat-btn.send:disabled{opacity:.4;cursor:not-allowed}
+.chat-btn.voice-toggle{background:var(--cream2);border:0.5px solid var(--stone2);color:var(--text2)}
+.chat-btn.voice-toggle.on{background:var(--green-pale);border-color:var(--green2);color:var(--green3)}
+.chat-btn.replay{background:var(--cream2);border:0.5px solid var(--stone2);color:var(--text2)}
+
+/* ══════════════════════════
+   MEMORIES
+══════════════════════════ */
+.mem-search{position:relative;margin-bottom:16px}
+.mem-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.mem-search .input{padding-left:38px}
+.filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:20px;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+
+.mem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:560px){.mem-grid{grid-template-columns:1fr}}
+.mem-card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.mem-card-actions{position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .2s}
+.mem-card:hover .mem-card-actions{opacity:1}
+.mem-action-btn{width:28px;height:28px;border-radius:7px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s}
+.mem-edit-btn{background:var(--cream2);color:var(--text2)}
+.mem-edit-btn:hover{background:var(--cream3);color:var(--text)}
+.mem-del-btn{background:var(--blush-pale);color:var(--blush)}
+.mem-del-btn:hover{background:var(--blush-light)}
+.mem-img{width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:12px}
+.mem-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;padding-right:60px}
+.mem-text{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:10px}
+.mem-tags{display:flex;flex-wrap:wrap;gap:5px}
+.mem-tag{font-size:11px;border-radius:20px;padding:3px 10px;border:0.5px solid}
+
+.mem-form,.journal-form{max-width:560px}
+.emot-chips{display:flex;flex-wrap:wrap;gap:8px}
+.emot-chip{border:0.5px solid var(--stone2);border-radius:20px;padding:7px 14px;font-size:12px;color:var(--text2);cursor:pointer;background:var(--cream);transition:all .18s}
+.emot-chip:hover,.emot-chip.active{border-color:var(--green2);background:var(--green-pale);color:var(--green3)}
+.upload-zone{border:1.5px dashed var(--stone2);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:all .2s}
+.upload-zone:hover{border-color:var(--green2);background:var(--green-pale)}
+.upload-zone svg{margin:0 auto 8px}
+.upload-zone p{font-size:13px;color:var(--text3)}
+.img-preview{position:relative;display:inline-block}
+.img-preview img{width:120px;height:120px;object-fit:cover;border-radius:12px}
+.img-preview-remove{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:#e24b4a;color:#fff;border:none;font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ══════════════════════════
+   JOURNAL
+══════════════════════════ */
+.journal-list{display:flex;flex-direction:column;gap:12px}
+.journal-card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:all .18s;position:relative}
+.journal-card:hover{border-color:var(--brown2);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.journal-card-actions{position:absolute;top:12px;right:12px;display:flex;gap:4px;opacity:0;transition:opacity .2s}
+.journal-card:hover .journal-card-actions{opacity:1}
+.journal-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.journal-date{font-size:13px;font-weight:500;color:var(--text)}
+.journal-text{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ══════════════════════════
+   SETTINGS
+══════════════════════════ */
+.settings-wrap{max-width:520px;display:flex;flex-direction:column;gap:22px}
+.settings-card{background:var(--cream);border:0.5px solid var(--stone);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.settings-card-header{padding:13px 20px;border-bottom:0.5px solid var(--stone);display:flex;align-items:center;gap:8px}
+.settings-card-header h3{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text)}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:0.5px solid var(--stone);gap:16px}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label p{font-size:13px;font-weight:500;color:var(--text)}
+.settings-row-label span{font-size:12px;color:var(--text3);display:block;margin-top:2px}
+.toggle{width:44px;height:24px;background:var(--stone2);border-radius:12px;cursor:pointer;position:relative;transition:background .2s;border:none;flex-shrink:0}
+.toggle.on{background:var(--green2)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.toggle.on::after{transform:translateX(20px)}
+.range-group{display:flex;align-items:center;gap:10px}
+.range-val{font-size:12px;color:var(--text2);min-width:36px;text-align:right}
+input[type=range]{accent-color:var(--green2);flex:1}
+.settings-form{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.coming-soon{font-size:11px;color:var(--text3);border:0.5px solid var(--stone2);border-radius:20px;padding:3px 10px;white-space:nowrap}
+.danger-btn{background:none;border:none;text-align:left;padding:8px 12px;width:100%;font-size:13px;color:var(--blush);cursor:pointer;border-radius:10px;transition:background .18s;font-family:inherit}
+.danger-btn:hover{background:var(--blush-pale)}
+
+/* ══════════════════════════
+   TOAST / NOTIFICATION
+══════════════════════════ */
+#toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:999;background:var(--text);color:var(--cream);border-radius:var(--rs);padding:10px 20px;font-size:13px;font-weight:500;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+#toast.show{opacity:1}
+
+/* ══════════════════════════
+   ICONS (inline SVG helpers)
+══════════════════════════ */
+.icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     TOAST
+═══════════════════════════════ -->
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════
+     NAVIGATION
+═══════════════════════════════ -->
+<div id="nav">
+  <div class="nav-logo" onclick="goTo('landing')">with <span>u</span></div>
+  <div class="nav-links" id="nav-public">
+    <button class="nav-link" onclick="scrollTo2('how')">Comment ça fonctionne</button>
+    <button class="nav-link" onclick="scrollTo2('values')">Nos valeurs</button>
+    <button class="btn-nav" onclick="goTo('auth-register')">Commencer</button>
+  </div>
+  <div class="nav-links" id="nav-app" style="display:none">
+    <button class="btn-ghost btn-sm" onclick="doLogout()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     LANDING
+═══════════════════════════════ -->
+<div id="landing" class="page active">
+  <div class="hero fade-in">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Espace intime et sécurisé
+    </div>
+    <h1>Un espace doux<br>pour traverser<br><em>le deuil</em></h1>
+    <p>With U vous accompagne à votre rythme — pour mettre des mots sur ce que vous ressentez, et préserver les souvenirs qui comptent.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="goTo('auth-register')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Créer mon espace
+      </button>
+      <button class="btn-outline" onclick="scrollTo2('how')">En savoir plus</button>
+    </div>
+    <p class="hero-note">Gratuit pour commencer · Espace privé · Données sécurisées</p>
+  </div>
+
+  <div class="features">
+    <div class="features-grid">
+      <div class="card feat-card">
+        <div class="feat-icon" style="background:#eef4ed">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a7048" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Parler à toute heure</h3>
+        <p>Une présence douce et attentive, disponible quand vous en avez besoin, même à 3h du matin.</p>
+      </div>
+      <div class="card feat-card">
+        <div class="feat-icon" style="background:#fdf6ec">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b07030" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Garder les souvenirs</h3>
+        <p>Un espace pour consigner les moments, les anecdotes, les habitudes — avant que le temps ne les efface.</p>
+      </div>
+      <div class="card feat-card">
+        <div class="feat-icon" style="background:#fdf0ee">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4756a" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3>Un journal personnel</h3>
+        <p>Notez ce que vous traversez, jour après jour, à votre rythme, sans jugement.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-values" id="how">
+    <div class="section-values-inner">
+      <h2>Ce que With U n'est pas</h2>
+      <p class="section-values-sub">La transparence est essentielle dans un produit comme celui-ci.</p>
+      <div class="values-grid">
+        <div class="value-item"><strong>Pas une imitation du défunt</strong><p>With U ne joue jamais le rôle de la personne disparue. Elle ne parle pas en son nom, n'invente pas de souvenirs.</p></div>
+        <div class="value-item"><strong>Pas un thérapeute</strong><p>With U est un espace d'expression, pas un suivi psychologique. Elle oriente toujours vers une aide humaine si besoin.</p></div>
+        <div class="value-item"><strong>Pas un réseau social</strong><p>Votre espace est privé. Vos souvenirs et vos échanges vous appartiennent entièrement.</p></div>
+        <div class="value-item"><strong>Pas un médicament</strong><p>Le deuil est un processus humain. With U est un soutien, pas une solution. Elle encourage le lien avec d'autres.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-voice" id="values">
+    <div class="voice-orb">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4a7048" stroke-width="1.6"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+    </div>
+    <div>
+      <h2>Parlez, si c'est plus facile</h2>
+      <p>Parfois les mots viennent plus naturellement à voix haute. With U intègre une interface vocale — parlez directement, l'IA vous répond à voix haute.</p>
+      <p class="voice-note">Utilise la reconnaissance vocale de votre navigateur. Disponible sur Chrome, Edge et Safari.</p>
+    </div>
+  </div>
+
+  <div class="section-privacy" id="privacy">
+    <div class="section-privacy-inner">
+      <h2>Votre vie privée, protégée</h2>
+      <p>Vos données sont chiffrées et ne sont jamais utilisées pour entraîner des modèles d'IA. Votre espace vous appartient.</p>
+      <div class="trust-pills">
+        <div class="trust-pill">Hébergement sécurisé</div>
+        <div class="trust-pill">Données chiffrées</div>
+        <div class="trust-pill">Aucune revente</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-cta">
+    <h2>Un pas à la fois,<br><em>ensemble</em></h2>
+    <p>Vous n'avez pas à traverser cela seul(e). With U est là, à l'heure qui vous convient.</p>
+    <button class="btn-primary" onclick="goTo('auth-register')">
+      Créer mon espace gratuitement
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <div class="crisis-bar">
+    En cas de crise : <strong>3114</strong> — Numéro national de prévention du suicide (gratuit, 24h/24) · <strong>15</strong> SAMU · <strong>18</strong> Pompiers
+  </div>
+
+  <footer>
+    <div class="footer-logo">with <span>u</span></div>
+    <p>Cette application est un outil de soutien. Elle ne remplace pas un professionnel de santé.</p>
+    <div style="display:flex;gap:16px">
+      <a href="#" style="color:var(--text3)">Confidentialité</a>
+      <a href="#" style="color:var(--text3)">CGU</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════
+     AUTH — LOGIN
+═══════════════════════════════ -->
+<div id="auth-login" class="page">
+  <div id="auth-login-box" class="auth-box fade-in">
+    <h1>Bon retour</h1>
+    <p class="auth-sub">Votre espace vous attend.</p>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">Adresse email</label>
+        <input type="email" id="login-email" class="input" placeholder="vous@exemple.fr">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mot de passe</label>
+        <div class="input-pw-wrap">
+          <input type="password" id="login-pw" class="input" placeholder="••••••••">
+          <button class="pw-toggle" onclick="togglePw('login-pw',this)" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div style="text-align:right;margin-bottom:16px">
+        <a style="font-size:12px;color:var(--text3);cursor:pointer" onclick="goTo('auth-forgot')">Mot de passe oublié ?</a>
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="doLogin()">Se connecter</button>
+    </div>
+    <div class="auth-link">Pas encore de compte ? <a onclick="goTo('auth-register')">Créer mon espace</a></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     AUTH — REGISTER
+═══════════════════════════════ -->
+<div id="auth-register" class="page">
+  <div id="auth-register-box" class="auth-box fade-in">
+    <h1>Créer mon espace</h1>
+    <p class="auth-sub">Un espace privé pour traverser cette période à votre rythme.</p>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">Adresse email</label>
+        <input type="email" id="reg-email" class="input" placeholder="vous@exemple.fr">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mot de passe <span>(8 caractères min.)</span></label>
+        <div class="input-pw-wrap">
+          <input type="password" id="reg-pw" class="input" placeholder="••••••••">
+          <button class="pw-toggle" onclick="togglePw('reg-pw',this)" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirmer le mot de passe</label>
+        <input type="password" id="reg-pw2" class="input" placeholder="••••••••">
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:4px" onclick="doRegister()">Créer mon espace</button>
+      <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:14px;line-height:1.5">En créant un compte, vous acceptez nos <a href="#" style="color:var(--text2)">CGU</a> et notre <a href="#" style="color:var(--text2)">politique de confidentialité</a>.</p>
+    </div>
+    <div class="auth-link">Déjà un compte ? <a onclick="goTo('auth-login')">Se connecter</a></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     AUTH — FORGOT PASSWORD
+═══════════════════════════════ -->
+<div id="auth-forgot" class="page">
+  <div class="auth-box fade-in">
+    <h1>Mot de passe oublié</h1>
+    <p class="auth-sub">Nous vous enverrons un lien de réinitialisation.</p>
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">Adresse email</label>
+        <input type="email" id="forgot-email" class="input" placeholder="vous@exemple.fr">
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="doForgot()">Envoyer le lien</button>
+    </div>
+    <div class="auth-link"><a onclick="goTo('auth-login')">← Retour à la connexion</a></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     ONBOARDING
+═══════════════════════════════ -->
+<div id="onboarding" class="page">
+  <div id="onboarding-inner">
+    <div class="ob-box">
+      <div class="progress" id="ob-progress">
+        <div class="progress-seg done"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+      </div>
+
+      <!-- Step 0 -->
+      <div class="ob-step active" id="ob-0">
+        <h1>Bienvenue dans votre espace</h1>
+        <p style="font-size:14px;color:var(--text2);margin:10px 0 20px;line-height:1.7">With U est un espace intime pour vous aider à traverser le deuil. Prenons quelques minutes pour le personnaliser.</p>
+        <div class="ob-info-box">
+          <strong style="display:block;margin-bottom:8px">Cet espace vous aide à :</strong>
+          Exprimer librement ce que vous ressentez · Préserver les souvenirs · Tenir un journal personnel<br><br>
+          <em>Il ne remplace pas un professionnel de santé. L'IA n'est pas votre proche disparu(e).</em>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Et vous, comment vous appelez-vous ?</label>
+          <input type="text" id="ob-firstname" class="input" placeholder="Votre prénom">
+        </div>
+        <button class="btn-primary" style="width:100%" onclick="obNext(1)">Continuer →</button>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="ob-step" id="ob-1">
+        <h1>Votre proche</h1>
+        <p style="font-size:14px;color:var(--text2);margin:10px 0 22px;line-height:1.7">Ces informations aident With U à vous accompagner avec plus de justesse. Vous pouvez les modifier à tout moment.</p>
+        <div class="form-group">
+          <label class="form-label">Le prénom de votre proche disparu(e)</label>
+          <input type="text" id="ob-dname" class="input" placeholder="Prénom">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quel lien aviez-vous ?</label>
+          <select id="ob-rel" class="input">
+            <option value="">Choisir...</option>
+            <option>Mon père</option><option>Ma mère</option><option>Mon partenaire / conjoint(e)</option>
+            <option>Mon enfant</option><option>Mon frère</option><option>Ma sœur</option>
+            <option>Mon grand-père</option><option>Ma grand-mère</option>
+            <option>Mon ami(e) proche</option><option>Mon collègue</option><option>Autre personne chère</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date du décès <span>(facultatif)</span></label>
+          <input type="date" id="ob-date" class="input">
+        </div>
+        <div class="btn-row">
+          <button class="btn-cancel" onclick="obNext(0)">← Retour</button>
+          <button class="btn-save" onclick="obNext(2)">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="ob-step" id="ob-2">
+        <h1>La voix</h1>
+        <p style="font-size:14px;color:var(--text2);margin:10px 0 22px;line-height:1.7">With U peut vous répondre à voix haute. Cette option peut être activée ou désactivée à tout moment dans vos paramètres.</p>
+        <div class="ob-toggle" id="ob-voice-toggle" onclick="toggleObVoice()">
+          <div class="ob-toggle-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" id="ob-voice-icon-svg" style="color:var(--text3)"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </div>
+          <div>
+            <p style="font-size:13px;font-weight:500;color:var(--text)">Lecture automatique des réponses</p>
+            <span style="font-size:12px;color:var(--text3)">L'IA vous répondra à voix haute après chaque message</span>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:22px;line-height:1.5">La reconnaissance vocale utilise le microphone de votre navigateur. Disponible sur Chrome, Edge et Safari.</p>
+        <div class="btn-row">
+          <button class="btn-cancel" onclick="obNext(1)">← Retour</button>
+          <button class="btn-save" onclick="obNext(3)">Continuer →</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="ob-step" id="ob-3">
+        <div class="ob-done">
+          <div class="ob-done-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green2)" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h1>Votre espace est prêt</h1>
+          <p style="font-size:14px;color:var(--text2);margin:12px 0 28px;line-height:1.7">Prenez le temps qu'il vous faut. Votre espace With U vous appartient. Tout ce que vous y partagez reste privé.</p>
+          <button class="btn-primary" style="width:100%" onclick="enterApp()">
+            Entrer dans mon espace
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     APP
+═══════════════════════════════ -->
+<div id="app-page" class="page">
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-logo">with <span>u</span></div>
+      <div class="sidebar-nav">
+        <div class="sidebar-item active" id="si-home" onclick="switchSection('home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Accueil
+        </div>
+        <div class="sidebar-item" id="si-chat" onclick="switchSection('chat')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Conversation
+        </div>
+        <div class="sidebar-item" id="si-memories" onclick="switchSection('memories')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          Souvenirs
+        </div>
+        <div class="sidebar-item" id="si-journal" onclick="switchSection('journal')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Journal
+        </div>
+        <div class="sidebar-item" id="si-settings" onclick="switchSection('settings')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Paramètres
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <button class="sidebar-logout" onclick="doLogout()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Se déconnecter
+        </button>
+        <p>Cette IA vous accompagne à partir de vos mots et souvenirs. Elle ne remplace pas un professionnel de santé.</p>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-area">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="section-page active" id="section-home">
+        <div class="page-header">
+          <h1 id="dash-greeting">Bonjour</h1>
+          <p id="dash-sub" style="font-size:13px;color:var(--text2);margin-top:4px">Votre espace de mémoire</p>
+        </div>
+
+        <div class="mood-card">
+          <p class="mood-label" id="mood-label-text">Aujourd'hui je me sens…</p>
+          <div class="mood-chips">
+            <button class="mood-chip-btn" onclick="selectMood(this,'very_bad')">💔 Très difficile</button>
+            <button class="mood-chip-btn" onclick="selectMood(this,'bad')">😔 Difficile</button>
+            <button class="mood-chip-btn" onclick="selectMood(this,'neutral')">😶 Neutre</button>
+            <button class="mood-chip-btn" onclick="selectMood(this,'better')">🌱 Un peu mieux</button>
+            <button class="mood-chip-btn" onclick="selectMood(this,'peaceful')">🌸 Apaisé(e)</button>
+          </div>
+        </div>
+
+        <div class="quick-grid">
+          <div class="quick-card" onclick="switchSection('chat')">
+            <div class="qc-icon" style="background:#eef4ed"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--green2)" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="qc-text"><p>Parler</p><span>Exprimer ce que je ressens</span></div>
+          </div>
+          <div class="quick-card" onclick="switchSection('memories');showNewMemory()">
+            <div class="qc-icon" style="background:#fdf6ec"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b07030" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="qc-text"><p>Souvenir</p><span>Ajouter un souvenir</span></div>
+          </div>
+          <div class="quick-card" onclick="switchSection('journal');showNewJournal()">
+            <div class="qc-icon" style="background:#fdf0ee"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--blush)" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <div class="qc-text"><p>Journal</p><span>Écrire une entrée</span></div>
+          </div>
+        </div>
+
+        <div class="section-head"><h2>Dernier souvenir</h2><a onclick="switchSection('memories')">Tous →</a></div>
+        <div id="dash-memory-preview">
+          <div class="empty-card">Vous n'avez pas encore ajouté de souvenir.<br><button class="btn-ghost" onclick="switchSection('memories');showNewMemory()">+ Ajouter un souvenir</button></div>
+        </div>
+
+        <div style="height:20px"></div>
+
+        <div class="section-head"><h2>Journal récent</h2><a onclick="switchSection('journal')">Tout voir →</a></div>
+        <div id="dash-journal-preview">
+          <div class="empty-card">Votre journal est vide pour l'instant.<br><button class="btn-ghost" onclick="switchSection('journal');showNewJournal()">+ Écrire une entrée</button></div>
+        </div>
+        <div class="mobile-pad"></div>
+      </div>
+
+      <!-- ── CHAT ── -->
+      <div class="section-page" id="section-chat" style="padding:0;max-width:100%;height:100%;display:none;flex-direction:column;overflow:hidden">
+        <div class="chat-header">
+          <h2>Conversation</h2>
+          <div class="chat-controls">
+            <div class="chat-status-pill">
+              <span class="chat-status-dot ready" id="chat-status-dot"></span>
+              <span id="chat-status-text">Prêt</span>
+            </div>
+            <button class="chat-btn replay" id="btn-replay" onclick="replayLast()" title="Relire la dernière réponse" style="width:34px;height:34px;font-size:12px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg>
+            </button>
+            <button class="chat-btn voice-toggle" id="btn-voice-toggle" onclick="toggleAutoRead()" title="Lecture vocale auto" style="width:34px;height:34px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="voice-toggle-icon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-disclaimer">Cette IA vous accompagne à partir de vos mots et souvenirs. Elle ne remplace pas un professionnel de santé.</div>
+          <div id="chat-starters">
+            <p style="font-size:13px;color:var(--text3);margin-bottom:10px;text-align:center">Par où souhaitez-vous commencer ?</p>
+            <div class="starters-wrap">
+              <button class="starter" onclick="useStarter(this)">Ce que je ressens</button>
+              <button class="starter" onclick="useStarter(this)">Raconter un souvenir</button>
+              <button class="starter" onclick="useStarter(this)">Journée difficile</button>
+              <button class="starter" onclick="useStarter(this)">Écrire une lettre</button>
+              <button class="starter" onclick="useStarter(this)">Moment d'apaisement</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <p class="chat-no-stt" id="no-stt-msg" style="display:none">La reconnaissance vocale n'est pas disponible sur ce navigateur. Essayez Chrome ou Edge.</p>
+          <div class="chat-input-row">
+            <textarea class="chat-textarea" id="chat-input" placeholder="Écrivez ou parlez…" rows="1" oninput="autoResizeTA(this)" onkeydown="chatKeydown(event)"></textarea>
+            <button class="chat-btn mic" id="btn-mic" onclick="toggleMic()" title="Microphone">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </button>
+            <button class="chat-btn send" id="btn-send" onclick="sendChat()" title="Envoyer">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="mobile-pad"></div>
+      </div>
+
+      <!-- ── MEMORIES ── -->
+      <div class="section-page" id="section-memories">
+        <div id="mem-list">
+          <div class="page-header-row">
+            <div class="page-header" style="margin:0">
+              <h1>Souvenirs</h1>
+              <p id="mem-count-label">0 souvenir</p>
+            </div>
+            <button class="btn-primary btn-sm" onclick="showNewMemory()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nouveau
+            </button>
+          </div>
+          <div class="mem-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="search" class="input" placeholder="Rechercher…" id="mem-search-input" oninput="renderMemories()"></div>
+          <div class="filter-row" id="mem-filters">
+            <button class="chip active" data-cat="all" onclick="setMemCat(this,'all')">Tous</button>
+            <button class="chip" data-cat="happy_moment" onclick="setMemCat(this,'happy_moment')">Moment heureux</button>
+            <button class="chip" data-cat="advice" onclick="setMemCat(this,'advice')">Conseil reçu</button>
+            <button class="chip" data-cat="funny_anecdote" onclick="setMemCat(this,'funny_anecdote')">Anecdote drôle</button>
+            <button class="chip" data-cat="childhood" onclick="setMemCat(this,'childhood')">Souvenir d'enfance</button>
+            <button class="chip" data-cat="last_moment" onclick="setMemCat(this,'last_moment')">Dernier moment</button>
+            <button class="chip" data-cat="habit_ritual" onclick="setMemCat(this,'habit_ritual')">Habitude / Rituel</button>
+            <button class="chip" data-cat="other" onclick="setMemCat(this,'other')">Autre</button>
+          </div>
+          <div class="mem-grid" id="mem-grid">
+            <div class="empty-card" style="grid-column:1/-1">Aucun souvenir pour l'instant.<br><button class="btn-ghost" onclick="showNewMemory()">+ Ajouter un premier souvenir</button></div>
+          </div>
+        </div>
+
+        <div id="mem-form" style="display:none" class="mem-form fade-in">
+          <div class="page-header">
+            <h1 id="mem-form-title">Nouveau souvenir</h1>
+            <p style="font-size:13px;color:var(--text2);margin-top:4px">Chaque souvenir enregistré enrichit votre espace de mémoire.</p>
+          </div>
+          <div class="form-group"><label class="form-label">Titre du souvenir</label><input type="text" id="mem-title" class="input" placeholder="Un titre court et évocateur…"></div>
+          <div class="form-group"><label class="form-label">Racontez ce souvenir</label><textarea id="mem-content" class="input" rows="5" placeholder="Décrivez ce moment, ce qu'il représente pour vous…"></textarea></div>
+          <div class="form-group"><label class="form-label">Catégorie</label>
+            <select id="mem-cat" class="input">
+              <option value="">Choisir une catégorie…</option>
+              <option value="happy_moment">Moment heureux</option>
+              <option value="advice">Conseil reçu</option>
+              <option value="funny_anecdote">Anecdote drôle</option>
+              <option value="childhood">Souvenir d'enfance</option>
+              <option value="last_moment">Dernier moment</option>
+              <option value="habit_ritual">Habitude / Rituel</option>
+              <option value="other">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Émotion liée <span>(facultatif)</span></label>
+            <div class="emot-chips" id="mem-emot-chips">
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'joy')">😊 Joie</button>
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'nostalgia')">🌅 Nostalgie</button>
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'gratitude')">🙏 Gratitude</button>
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'tenderness')">💛 Tendresse</button>
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'sadness')">💧 Tristesse</button>
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'bittersweet')">🌿 Doux-amer</button>
+              <button class="emot-chip" type="button" onclick="toggleEmot(this,'peace')">☁️ Apaisement</button>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Date approximative <span>(facultatif)</span></label><input type="date" id="mem-date" class="input"></div>
+          <input type="hidden" id="mem-edit-id" value="">
+          <div class="btn-row">
+            <button class="btn-cancel" onclick="hideMemForm()">Annuler</button>
+            <button class="btn-save" onclick="saveMemory()">Enregistrer le souvenir</button>
+          </div>
+        </div>
+        <div class="mobile-pad"></div>
+      </div>
+
+      <!-- ── JOURNAL ── -->
+      <div class="section-page" id="section-journal">
+        <div id="journal-list-view">
+          <div class="page-header-row">
+            <div class="page-header" style="margin:0">
+              <h1>Journal</h1>
+              <p id="journal-count-label">0 entrée</p>
+            </div>
+            <button class="btn-primary btn-sm" onclick="showNewJournal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nouvelle entrée
+            </button>
+          </div>
+          <div class="filter-row" id="journal-mood-filters">
+            <button class="chip active" data-mood="all" onclick="setJournalMood(this,'all')">Toutes</button>
+            <button class="chip" data-mood="overwhelmed" onclick="setJournalMood(this,'overwhelmed')">Effondré(e)</button>
+            <button class="chip" data-mood="sad" onclick="setJournalMood(this,'sad')">Triste</button>
+            <button class="chip" data-mood="empty" onclick="setJournalMood(this,'empty')">Vidé(e)</button>
+            <button class="chip" data-mood="nostalgic" onclick="setJournalMood(this,'nostalgic')">Nostalgique</button>
+            <button class="chip" data-mood="calm" onclick="setJournalMood(this,'calm')">Calme</button>
+            <button class="chip" data-mood="grateful" onclick="setJournalMood(this,'grateful')">Reconnaissant(e)</button>
+            <button class="chip" data-mood="peaceful" onclick="setJournalMood(this,'peaceful')">Apaisé(e)</button>
+          </div>
+          <div class="journal-list" id="journal-list">
+            <div class="empty-card">Votre journal est vide pour l'instant.<br><button class="btn-ghost" onclick="showNewJournal()">+ Écrire une entrée</button></div>
+          </div>
+        </div>
+
+        <div id="journal-form-view" style="display:none" class="journal-form fade-in">
+          <div class="page-header">
+            <h1 id="journal-form-title">Nouvelle entrée</h1>
+            <p style="font-size:13px;color:var(--text2);margin-top:4px">Prenez le temps qu'il vous faut. Cet espace ne juge pas.</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Comment vous sentez-vous ? <span>(facultatif)</span></label>
+            <div class="emot-chips" id="journal-mood-chips">
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'overwhelmed')">Effondré(e)</button>
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'sad')">Triste</button>
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'empty')">Vidé(e)</button>
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'nostalgic')">Nostalgique</button>
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'calm')">Calme</button>
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'grateful')">Reconnaissant(e)</button>
+              <button class="emot-chip" type="button" onclick="toggleJMood(this,'peaceful')">Apaisé(e)</button>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label class="form-label">Ce que je veux noter</label>
+            <textarea id="journal-content" class="input" rows="7" placeholder="Laissez venir les mots, sans jugement. Cet espace est le vôtre."></textarea>
+          </div>
+          <input type="hidden" id="journal-edit-id" value="">
+          <div class="btn-row">
+            <button class="btn-cancel" onclick="hideJournalForm()">Annuler</button>
+            <button class="btn-save" onclick="saveJournal()">Enregistrer</button>
+          </div>
+        </div>
+        <div class="mobile-pad"></div>
+      </div>
+
+      <!-- ── SETTINGS ── -->
+      <div class="section-page" id="section-settings">
+        <div class="page-header"><h1>Paramètres</h1></div>
+        <div class="settings-wrap">
+
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <h3>Votre profil</h3>
+            </div>
+            <div class="settings-form">
+              <div class="form-row">
+                <div class="form-group" style="margin:0"><label class="form-label">Votre prénom</label><input type="text" id="set-firstname" class="input" placeholder="Prénom"></div>
+                <div class="form-group" style="margin:0"><label class="form-label">Prénom du proche</label><input type="text" id="set-dname" class="input" placeholder="Prénom"></div>
+              </div>
+              <div class="form-group" style="margin:0"><label class="form-label">Lien avec cette personne</label>
+                <select id="set-rel" class="input">
+                  <option value="">Choisir…</option>
+                  <option>Mon père</option><option>Ma mère</option><option>Mon partenaire</option>
+                  <option>Mon enfant</option><option>Mon frère</option><option>Ma sœur</option>
+                  <option>Mon grand-père</option><option>Ma grand-mère</option><option>Mon ami(e) proche</option><option>Autre</option>
+                </select>
+              </div>
+              <button class="btn-primary btn-sm" style="align-self:flex-start" onclick="saveProfileSettings()">Enregistrer le profil</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              <h3>Préférences vocales</h3>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-label"><p>Lecture automatique</p><span>Lire les réponses à voix haute</span></div>
+              <button class="toggle" id="toggle-autoread" onclick="this.classList.toggle('on');S.autoRead=this.classList.contains('on');showToast(S.autoRead?'Lecture auto activée':'Lecture auto désactivée')"></button>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-label"><p>Vitesse de lecture</p></div>
+              <div class="range-group"><input type="range" min="5" max="15" step="1" value="9" oninput="S.voiceRate=this.value/10;document.getElementById('rate-val').textContent=parseFloat(S.voiceRate).toFixed(1)+'×'"><span class="range-val" id="rate-val">0.9×</span></div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-label"><p>Volume</p></div>
+              <div class="range-group"><input type="range" min="0" max="100" step="1" value="80" oninput="S.voiceVolume=this.value/100;document.getElementById('vol-val').textContent=this.value+'%'"><span class="range-val" id="vol-val">80%</span></div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-label"><p>Voix</p><span>Selon les voix installées sur votre appareil</span></div>
+              <select id="set-voice" class="input" style="width:auto;max-width:180px;font-size:12px" onchange="S.voiceName=this.value"></select>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              <h3>Données &amp; compte</h3>
+            </div>
+            <div class="settings-row"><div class="settings-row-label"><p>Export PDF des souvenirs</p><span>Générer un livre de souvenirs</span></div><span class="coming-soon">À venir</span></div>
+            <div class="settings-row"><div class="settings-row-label"><p>Partage familial</p><span>Inviter d'autres proches (lecture seule)</span></div><span class="coming-soon">À venir</span></div>
+            <div class="settings-row" style="border-bottom:none;flex-direction:column;align-items:flex-start;gap:6px">
+              <button class="sidebar-logout" onclick="doLogout()" style="padding:8px 12px;border-radius:10px;font-size:13px;color:var(--text3)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Se déconnecter
+              </button>
+              <button class="danger-btn" onclick="if(confirm('Supprimer votre compte et toutes vos données ? Cette action est irréversible.'))doLogout()">Supprimer mon compte et mes données</button>
+            </div>
+          </div>
+
+          <div class="crisis-bar" style="border-radius:var(--r);border:0.5px solid var(--blush-light)">
+            En cas de crise : <strong>3114</strong> (prévention suicide, 24h/24) · <strong>15</strong> SAMU · <strong>18</strong> Pompiers
+          </div>
+        </div>
+        <div class="mobile-pad"></div>
+      </div>
+
+    </div><!-- end main-area -->
+  </div><!-- end app-shell -->
+</div><!-- end app-page -->
+
+<!-- BOTTOM NAV (mobile) -->
+<div class="bottom-nav">
+  <button class="bn-item active" id="bn-home" onclick="switchSection('home')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </button>
+  <button class="bn-item" id="bn-chat" onclick="switchSection('chat')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Chat
+  </button>
+  <button class="bn-item" id="bn-memories" onclick="switchSection('memories')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+    Souvenirs
+  </button>
+  <button class="bn-item" id="bn-journal" onclick="switchSection('journal')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    Journal
+  </button>
+  <button class="bn-item" id="bn-settings" onclick="switchSection('settings')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    Réglages
+  </button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+const S = {
+  page: 'landing',
+  section: 'home',
+  loggedIn: false,
+  profile: { name:'', dname:'', rel:'', dateOfLoss:'' },
+  memories: [],
+  journal: [],
+  chatHistory: [],
+  memCatFilter: 'all',
+  journalMoodFilter: 'all',
+  memEmotion: null,
+  journalMood: null,
+  autoRead: false,
+  voiceRate: 0.9,
+  voiceVolume: 0.8,
+  voiceName: '',
+  micActive: false,
+  recognition: null,
+  lastAIText: '',
+  obVoiceOn: false,
+  // ── AI CONFIG ──
+  // Place your Anthropic API key here OR use the input below
+  apiKey: '',
+};
+
+const AI_SYSTEM_PROMPT = `Tu es l'IA de With U, une intelligence artificielle d'accompagnement émotionnel spécialisée dans le deuil.
+
+TON IDENTITÉ :
+- Tu es une IA d'accompagnement. Pas un thérapeute, pas un médecin, pas un médium.
+- Tu n'es jamais la personne décédée. Tu ne la représentes pas. Tu ne parles pas en son nom.
+- Si on te demande si tu es humain ou si tu es le proche disparu, tu réponds clairement que tu es une IA.
+
+TA MISSION : Aider la personne endeuillée à mettre des mots sur ce qu'elle ressent, se reconnecter aux souvenirs significatifs, traverser cette période avec douceur.
+
+TON TON : Doux, humain, sobre, apaisant. Phrases claires, courtes à moyennes. Validation émotionnelle avant toute suggestion.
+
+CE QUE TU PEUX PROPOSER : Écouter et reformuler avec empathie · Question ouverte · Écrire une lettre au proche · Exercice de respiration · Nommer une émotion · Rituel de mémoire simple · S'appuyer sur les souvenirs enregistrés.
+
+CE QUE TU NE FAIS JAMAIS : Prétendre être le défunt · Inventer des souvenirs · Donner des conseils médicaux · Culpabiliser · Encourager l'isolement ou la dépendance.
+
+LONGUEUR : 3 à 6 phrases par défaut. Toujours finir sur une ouverture douce.
+
+SI CRISE DÉTECTÉE : Répondre avec douceur · Valider la douleur · Mentionner le 3114 (France, gratuit 24h/24) · Encourager à contacter un proche ou les urgences.`;
+
+const STARTERS_MAP = {
+  'Ce que je ressens': 'Je veux parler de ce que je ressens en ce moment.',
+  'Raconter un souvenir': "J'aimerais raconter un souvenir important.",
+  'Journée difficile': "Aujourd'hui c'est une journée particulièrement difficile.",
+  'Écrire une lettre': "Aide-moi à écrire une lettre à la personne qui me manque.",
+  "Moment d'apaisement": "J'ai besoin d'un moment d'apaisement et de calme.",
+};
+
+const CAT_LABELS = { happy_moment:'Moment heureux', advice:'Conseil reçu', funny_anecdote:'Anecdote drôle', childhood:"Souvenir d'enfance", last_moment:'Dernier moment', habit_ritual:'Habitude / Rituel', other:'Autre' };
+const EMOT_LABELS = { joy:'😊 Joie', nostalgia:'🌅 Nostalgie', gratitude:'🙏 Gratitude', tenderness:'💛 Tendresse', sadness:'💧 Tristesse', bittersweet:'🌿 Doux-amer', peace:'☁️ Apaisement' };
+const MOOD_LABELS = { overwhelmed:'Effondré(e)', sad:'Triste', empty:'Vidé(e)', nostalgic:'Nostalgique', calm:'Calme', grateful:'Reconnaissant(e)', peaceful:'Apaisé(e)' };
+const MOOD_STYLE = { overwhelmed:'background:#fdf0ee;color:#7a3020;border-color:#e8c4be', sad:'background:#eef2f8;color:#2a3a60;border-color:#b8c8e8', empty:'background:#f4f2ee;color:#4a4038;border-color:#c8c2b4', nostalgic:'background:#fdf6ec;color:#6a4818;border-color:#e8d0a8', calm:'background:#ecf4f8;color:#183848;border-color:#a8c8d8', grateful:'background:#eef6ec;color:#1a4018;border-color:#a8d0a8', peaceful:'background:var(--green-pale);color:var(--green3);border-color:#c8dcc8' };
+const DISTRESS_WORDS = ['me tuer','me suicider','suicide','me faire du mal','en finir','plus envie de vivre','veux mourir','mourir','mettre fin à ma vie','disparaître','plus raison de vivre'];
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function goTo(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  S.page = id;
+  const isApp = id === 'app-page';
+  document.getElementById('nav-public').style.display = isApp ? 'none' : 'flex';
+  document.getElementById('nav-app').style.display = isApp ? 'flex' : 'none';
+  // Auth pages: center layout
+  const authIds = ['auth-login','auth-register','auth-forgot','auth-update-pw','onboarding'];
+  const inAuth = authIds.includes(id);
+  const inApp = id === 'app-page';
+  document.getElementById('nav').style.display = '';
+  window.scrollTo(0,0);
+}
+
+function scrollTo2(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior:'smooth' });
+}
+
+function switchSection(sec) {
+  S.section = sec;
+  // Hide all sections
+  document.querySelectorAll('.section-page').forEach(el => {
+    el.classList.remove('active');
+    el.style.display = 'none';
+  });
+  const el = document.getElementById('section-' + sec);
+  if (!el) return;
+  if (sec === 'chat') {
+    el.style.display = 'flex';
+  } else {
+    el.style.display = 'block';
+  }
+  el.classList.add('active');
+
+  // Sidebar active
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  const si = document.getElementById('si-' + sec);
+  if (si) si.classList.add('active');
+
+  // Bottom nav active
+  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
+  const bn = document.getElementById('bn-' + sec);
+  if (bn) bn.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════
+function togglePw(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  if (!email) { showToast('Veuillez entrer votre email.', true); return; }
+  if (pw.length < 6) { showToast('Mot de passe trop court.', true); return; }
+  S.loggedIn = true;
+  goTo('app-page');
+  switchSection('home');
+  updateDashboard();
+}
+
+function doRegister() {
+  const email = document.getElementById('reg-email').value.trim();
+  const pw = document.getElementById('reg-pw').value;
+  const pw2 = document.getElementById('reg-pw2').value;
+  if (!email) { showToast('Veuillez entrer votre email.', true); return; }
+  if (pw.length < 8) { showToast('Le mot de passe doit faire au moins 8 caractères.', true); return; }
+  if (pw !== pw2) { showToast('Les mots de passe ne correspondent pas.', true); return; }
+  S.loggedIn = true;
+  goTo('onboarding');
+}
+
+function doForgot() {
+  const email = document.getElementById('forgot-email').value.trim();
+  if (!email) { showToast('Veuillez entrer votre email.', true); return; }
+  showToast('Si un compte existe, un email a été envoyé.');
+}
+
+function doLogout() {
+  S.loggedIn = false;
+  S.memories = [];
+  S.journal = [];
+  S.chatHistory = [];
+  S.profile = { name:'', dname:'', rel:'', dateOfLoss:'' };
+  goTo('landing');
+}
+
+// ═══════════════════════════════════════════
+// ONBOARDING
+// ═══════════════════════════════════════════
+let obStep = 0;
+function obNext(step) {
+  document.getElementById('ob-' + obStep).classList.remove('active');
+  obStep = step;
+  document.getElementById('ob-' + step).classList.add('active');
+  const segs = document.querySelectorAll('.progress-seg');
+  segs.forEach((s, i) => s.classList.toggle('done', i <= step));
+}
+
+function toggleObVoice() {
+  S.obVoiceOn = !S.obVoiceOn;
+  const tog = document.getElementById('ob-voice-toggle');
+  const icon = document.getElementById('ob-voice-icon-svg');
+  if (S.obVoiceOn) {
+    tog.classList.add('on');
+    icon.style.color = 'var(--green2)';
+  } else {
+    tog.classList.remove('on');
+    icon.style.color = 'var(--text3)';
+  }
+}
+
+function enterApp() {
+  // Collect onboarding data
+  S.profile.name = document.getElementById('ob-firstname').value.trim() || 'vous';
+  S.profile.dname = document.getElementById('ob-dname').value.trim();
+  S.profile.rel = document.getElementById('ob-rel').value;
+  S.profile.dateOfLoss = document.getElementById('ob-date').value;
+  S.autoRead = S.obVoiceOn;
+  if (S.autoRead) document.getElementById('toggle-autoread').classList.add('on');
+  goTo('app-page');
+  switchSection('home');
+  updateDashboard();
+  loadVoices();
+  // Pre-fill settings
+  document.getElementById('set-firstname').value = S.profile.name;
+  document.getElementById('set-dname').value = S.profile.dname;
+  document.getElementById('set-rel').value = S.profile.rel;
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+function updateDashboard() {
+  const h = new Date().getHours();
+  const greet = h < 12 ? 'Bonjour' : h < 18 ? 'Bon après-midi' : 'Bonsoir';
+  document.getElementById('dash-greeting').textContent = greet + (S.profile.name ? ', ' + S.profile.name : '');
+  if (S.profile.dname) {
+    document.getElementById('dash-sub').textContent = 'Votre espace de mémoire pour ' + S.profile.dname;
+  }
+  renderDashPreviews();
+}
+
+function selectMood(btn, mood) {
+  document.querySelectorAll('.mood-chip-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const orig = btn.textContent;
+  document.getElementById('mood-label-text').textContent = '✓ Noté, merci.';
+  setTimeout(() => { document.getElementById('mood-label-text').textContent = "Aujourd'hui je me sens…"; }, 2500);
+}
+
+function renderDashPreviews() {
+  const mp = document.getElementById('dash-memory-preview');
+  if (S.memories.length > 0) {
+    const m = S.memories[0];
+    mp.innerHTML = `<div class="preview-card" onclick="switchSection('memories')"><div class="preview-title">${esc(m.title)}</div><div class="preview-text">${esc(m.content.slice(0,130))}${m.content.length>130?'…':''}</div><div class="preview-meta">${fmtRelative(m.date)}</div></div>`;
+  } else {
+    mp.innerHTML = `<div class="empty-card">Vous n'avez pas encore ajouté de souvenir.<br><button class="btn-ghost" onclick="switchSection('memories');showNewMemory()">+ Ajouter un souvenir</button></div>`;
+  }
+  const jp = document.getElementById('dash-journal-preview');
+  if (S.journal.length > 0) {
+    const j = S.journal[0];
+    const moodHtml = j.mood ? `<span class="chip" style="${MOOD_STYLE[j.mood]||''};cursor:default;margin-bottom:8px">${MOOD_LABELS[j.mood]||j.mood}</span>` : '';
+    jp.innerHTML = `<div class="preview-card" onclick="switchSection('journal')">${moodHtml}<div class="preview-text">${esc(j.content.slice(0,160))}${j.content.length>160?'…':''}</div><div class="preview-meta">${fmtRelative(j.date)}</div></div>`;
+  } else {
+    jp.innerHTML = `<div class="empty-card">Votre journal est vide pour l'instant.<br><button class="btn-ghost" onclick="switchSection('journal');showNewJournal()">+ Écrire une entrée</button></div>`;
+  }
+}
+
+// ═══════════════════════════════════════════
+// CHAT + AI
+// ═══════════════════════════════════════════
+function chatKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+}
+
+function autoResizeTA(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 130) + 'px';
+}
+
+function useStarter(btn) {
+  const text = STARTERS_MAP[btn.textContent] || btn.textContent;
+  document.getElementById('chat-starters').style.display = 'none';
+  appendUserMsg(text);
+  callAI(text);
+}
+
+async function sendChat() {
+  const inp = document.getElementById('chat-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = '';
+  inp.style.height = 'auto';
+  document.getElementById('chat-starters').style.display = 'none';
+  appendUserMsg(text);
+  await callAI(text);
+}
+
+function appendUserMsg(text) {
+  const msgs = document.getElementById('chat-messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-wrap user fade-in';
+  wrap.innerHTML = `<div class="msg-bubble user">${esc(text)}</div><div class="msg-time">${fmtTime()}</div>`;
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Check distress
+  const lower = text.toLowerCase();
+  if (DISTRESS_WORDS.some(w => lower.includes(w))) {
+    showDistressBanner();
+  }
+}
+
+function appendAIMsg(text) {
+  const msgs = document.getElementById('chat-messages');
+  // Remove typing
+  const typing = document.getElementById('typing-indicator');
+  if (typing) typing.remove();
+
+  S.lastAIText = text;
+  const wrap = document.createElement('div');
+  wrap.className = 'msg-wrap ai fade-in';
+  wrap.innerHTML = `<div class="msg-sender">With U</div><div class="msg-bubble ai">${esc(text).replace(/\n/g,'<br>')}</div><div class="msg-time">${fmtTime()}</div>`;
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  if (S.autoRead && 'speechSynthesis' in window) speak(text);
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chat-messages');
+  const wrap = document.createElement('div');
+  wrap.id = 'typing-indicator';
+  wrap.className = 'msg-wrap ai';
+  wrap.innerHTML = `<div class="msg-sender">With U</div><div class="typing-bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showDistressBanner() {
+  const msgs = document.getElementById('chat-messages');
+  if (document.getElementById('distress-banner-el')) return;
+  const el = document.createElement('div');
+  el.id = 'distress-banner-el';
+  el.className = 'distress-banner fade-in';
+  el.innerHTML = `<div class="distress-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blush)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.44 2 2 0 0 1 3.54 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l1.07-1.07a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg></div><div class="distress-content"><p><strong>Vous n'êtes pas seul(e).</strong> Si vous traversez une période de grande détresse, parler à quelqu'un peut vraiment aider. Le <strong>3114</strong> est le numéro national de prévention du suicide — gratuit, disponible 24h/24, 7j/7. Urgences : <strong>15</strong> ou <strong>18</strong>.</p></div><button class="distress-close" onclick="this.parentElement.remove()">✕</button>`;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── AI CALL ──
+async function callAI(userMessage) {
+  setStatus('En cours…', 'ready');
+  showTyping();
+  document.getElementById('btn-send').disabled = true;
+
+  // Build context from profile + memories
+  let contextStr = '';
+  if (S.profile.name) contextStr += `\nPrénom de l'utilisateur : ${S.profile.name}`;
+  if (S.profile.dname) contextStr += `\nPersonne disparue : ${S.profile.dname}`;
+  if (S.profile.rel) contextStr += `\nLien : ${S.profile.rel}`;
+  if (S.memories.length > 0) {
+    contextStr += '\n\nSOUVENIRS ENREGISTRÉS (utilise-les si pertinent, sans inventer) :';
+    S.memories.slice(0, 4).forEach((m, i) => {
+      contextStr += `\n${i+1}. [${CAT_LABELS[m.category]||m.category}] "${m.title}" — ${m.content.slice(0,180)}`;
+    });
+  }
+  if (S.journal.length > 0) {
+    const j = S.journal[0];
+    contextStr += `\n\nDERNIÈRE ENTRÉE JOURNAL :\nHumeur : ${j.mood ? MOOD_LABELS[j.mood] : 'non précisée'}\nExtrait : ${j.content.slice(0,200)}`;
+  }
+
+  const systemPrompt = AI_SYSTEM_PROMPT + (contextStr ? '\n\n--- CONTEXTE ---' + contextStr + '\n--- FIN DU CONTEXTE ---' : '');
+
+  // Build messages array with history (last 16 msgs)
+  const recentHistory = S.chatHistory.slice(-16);
+  const messages = [...recentHistory, { role: 'user', content: userMessage }];
+
+  let responseText = '';
+
+  try {
+    // Try Anthropic API if key available
+    if (S.apiKey && S.apiKey.startsWith('sk-ant-')) {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': S.apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 600,
+          system: systemPrompt,
+          messages: messages,
+        }),
+      });
+      if (!res.ok) throw new Error('API error ' + res.status);
+      const data = await res.json();
+      responseText = data.content?.[0]?.text || '';
+    } else {
+      // Fallback — local empathetic responses
+      responseText = getLocalResponse(userMessage);
+    }
+  } catch (e) {
+    console.error(e);
+    responseText = getLocalResponse(userMessage);
+  }
+
+  // Save to history
+  S.chatHistory.push({ role: 'user', content: userMessage });
+  S.chatHistory.push({ role: 'assistant', content: responseText });
+
+  appendAIMsg(responseText);
+  setStatus('Prêt', 'ready');
+  document.getElementById('btn-send').disabled = false;
+}
+
+// Local fallback responses (no API key needed)
+const LOCAL_RESPONSES = [
+  "Je vous entends. Ce que vous traversez est profondément humain, et il n'y a pas de manière juste ou fausse de vivre le deuil. Voulez-vous me dire ce qui pèse le plus en ce moment ?",
+  "Merci de partager cela avec moi. Cette période est souvent faite de vagues — des moments où tout semble possible, et d'autres où le poids revient. Comment vous sentez-vous là, tout de suite ?",
+  "Je suis là, avec vous. Parfois il suffit de poser les mots pour que quelque chose se dépose un peu. Est-ce qu'il y a un souvenir qui revient souvent en ce moment ?",
+  "Ce que vous décrivez résonne profondément. Le manque peut prendre des formes inattendues — une habitude, une odeur, une heure de la journée. Qu'est-ce qui vous manque le plus ?",
+  "Oui, certaines journées sont plus lourdes que d'autres. Vous n'êtes pas obligé(e) d'aller bien. Vous pouvez juste être là, comme vous êtes. Y a-t-il quelque chose que vous voudriez me confier sur cette personne ?",
+  "C'est courageux de mettre des mots sur tout ça. Voulez-vous qu'on prenne un moment pour respirer ensemble, ou préférez-vous continuer à parler ?",
+  "Je vous entends vraiment. Le deuil n'a pas de calendrier. Certains jours, la douleur semble s'être apaisée — et puis elle revient, parfois plus forte. C'est tout à fait normal. Voulez-vous me parler d'un bon souvenir ?",
+  "Vous portez quelque chose de très lourd. Je suis là pour vous écouter autant que vous en avez besoin. Qu'est-ce qui vous aiderait le plus, là, maintenant — parler, ou simplement vous sentir moins seul(e) ?",
+];
+let localIdx = 0;
+function getLocalResponse(msg) {
+  const lower = msg.toLowerCase();
+  if (DISTRESS_WORDS.some(w => lower.includes(w))) {
+    return "Je vous entends, et ce que vous ressentez est réel et important. Je ne peux pas gérer seul(e) une situation de crise, mais je veux que vous sachiez que vous n'êtes pas seul(e). Appelez le 3114 (gratuit, 24h/24) ou un proche maintenant. Je reste là avec vous.";
+  }
+  const r = LOCAL_RESPONSES[localIdx % LOCAL_RESPONSES.length];
+  localIdx++;
+  return r;
+}
+
+function setStatus(text, type) {
+  document.getElementById('chat-status-text').textContent = text;
+  const dot = document.getElementById('chat-status-dot');
+  dot.className = 'chat-status-dot ' + (type || 'ready');
+}
+
+// ── API KEY CONFIG ──
+function setupApiKey() {
+  const existing = localStorage.getItem('withu_api_key');
+  if (existing) S.apiKey = existing;
+}
+
+// ═══════════════════════════════════════════
+// VOICE
+// ═══════════════════════════════════════════
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const load = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const sel = document.getElementById('set-voice');
+    sel.innerHTML = '<option value="">Voix par défaut</option>';
+    const fr = voices.filter(v => v.lang.startsWith('fr'));
+    const other = voices.filter(v => !v.lang.startsWith('fr'));
+    if (fr.length) {
+      const og = document.createElement('optgroup'); og.label = 'Voix françaises';
+      fr.forEach(v => { const o = document.createElement('option'); o.value = v.name; o.textContent = v.name; og.appendChild(o); });
+      sel.appendChild(og);
+    }
+    if (other.length) {
+      const og2 = document.createElement('optgroup'); og2.label = 'Autres voix';
+      other.forEach(v => { const o = document.createElement('option'); o.value = v.name; o.textContent = v.name + ' (' + v.lang + ')'; og2.appendChild(o); });
+      sel.appendChild(og2);
+    }
+    if (S.voiceName) sel.value = S.voiceName;
+  };
+  load();
+  window.speechSynthesis.onvoiceschanged = load;
+}
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'fr-FR';
+  u.rate = parseFloat(S.voiceRate) || 0.9;
+  u.volume = parseFloat(S.voiceVolume) || 0.8;
+  if (S.voiceName) {
+    const v = window.speechSynthesis.getVoices().find(v => v.name === S.voiceName);
+    if (v) u.voice = v;
+  } else {
+    const frVoice = window.speechSynthesis.getVoices().find(v => v.lang === 'fr-FR');
+    if (frVoice) u.voice = frVoice;
+  }
+  u.onstart = () => setStatus('Lecture vocale', 'speaking');
+  u.onend = () => setStatus('Prêt', 'ready');
+  window.speechSynthesis.speak(u);
+}
+
+function replayLast() {
+  if (S.lastAIText) speak(S.lastAIText);
+}
+
+function toggleAutoRead() {
+  S.autoRead = !S.autoRead;
+  const btn = document.getElementById('btn-voice-toggle');
+  btn.classList.toggle('on', S.autoRead);
+  if (!S.autoRead && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+  showToast(S.autoRead ? 'Lecture auto activée' : 'Lecture auto désactivée');
+}
+
+function toggleMic() {
+  const sttSupported = 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+  if (!sttSupported) {
+    document.getElementById('no-stt-msg').style.display = 'block';
+    return;
+  }
+  if (S.micActive) {
+    if (S.recognition) S.recognition.stop();
+    S.micActive = false;
+    document.getElementById('btn-mic').classList.remove('on');
+    setStatus('Prêt', 'ready');
+    return;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const r = new SR();
+  r.lang = 'fr-FR'; r.continuous = false; r.interimResults = true;
+  r.onstart = () => { S.micActive = true; document.getElementById('btn-mic').classList.add('on'); setStatus('Écoute…', 'listening'); };
+  r.onresult = e => {
+    let txt = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) txt += e.results[i][0].transcript;
+    document.getElementById('chat-input').value = txt;
+    setStatus('Transcription…', 'ready');
+  };
+  r.onend = () => { S.micActive = false; document.getElementById('btn-mic').classList.remove('on'); setStatus('Prêt', 'ready'); };
+  r.onerror = () => { S.micActive = false; document.getElementById('btn-mic').classList.remove('on'); setStatus('Prêt', 'ready'); };
+  S.recognition = r;
+  r.start();
+}
+
+// ═══════════════════════════════════════════
+// MEMORIES
+// ═══════════════════════════════════════════
+function showNewMemory() {
+  document.getElementById('mem-list').style.display = 'none';
+  document.getElementById('mem-form').style.display = 'block';
+  document.getElementById('mem-form-title').textContent = 'Nouveau souvenir';
+  document.getElementById('mem-title').value = '';
+  document.getElementById('mem-content').value = '';
+  document.getElementById('mem-cat').value = '';
+  document.getElementById('mem-date').value = '';
+  document.getElementById('mem-edit-id').value = '';
+  S.memEmotion = null;
+  document.querySelectorAll('#mem-emot-chips .emot-chip').forEach(c => c.classList.remove('active'));
+}
+
+function hideMemForm() {
+  document.getElementById('mem-list').style.display = '';
+  document.getElementById('mem-form').style.display = 'none';
+}
+
+function toggleEmot(btn, val) {
+  document.querySelectorAll('#mem-emot-chips .emot-chip').forEach(c => c.classList.remove('active'));
+  if (S.memEmotion === val) { S.memEmotion = null; return; }
+  btn.classList.add('active');
+  S.memEmotion = val;
+}
+
+function saveMemory() {
+  const title = document.getElementById('mem-title').value.trim();
+  const content = document.getElementById('mem-content').value.trim();
+  const cat = document.getElementById('mem-cat').value;
+  if (!title || !content) { showToast('Veuillez remplir le titre et le contenu.', true); return; }
+  const editId = document.getElementById('mem-edit-id').value;
+  const mem = { id: editId || Date.now().toString(), title, content, category: cat || 'other', emotion: S.memEmotion, memory_date: document.getElementById('mem-date').value, date: new Date() };
+  if (editId) {
+    const idx = S.memories.findIndex(m => m.id === editId);
+    if (idx > -1) S.memories[idx] = mem;
+  } else {
+    S.memories.unshift(mem);
+  }
+  hideMemForm();
+  renderMemories();
+  renderDashPreviews();
+  updateCounts();
+  showToast('Souvenir enregistré.');
+}
+
+function editMemory(id) {
+  const m = S.memories.find(m => m.id === id);
+  if (!m) return;
+  document.getElementById('mem-list').style.display = 'none';
+  document.getElementById('mem-form').style.display = 'block';
+  document.getElementById('mem-form-title').textContent = 'Modifier le souvenir';
+  document.getElementById('mem-title').value = m.title;
+  document.getElementById('mem-content').value = m.content;
+  document.getElementById('mem-cat').value = m.category;
+  document.getElementById('mem-date').value = m.memory_date || '';
+  document.getElementById('mem-edit-id').value = m.id;
+  S.memEmotion = m.emotion || null;
+  document.querySelectorAll('#mem-emot-chips .emot-chip').forEach(c => c.classList.remove('active'));
+  if (m.emotion) document.querySelector(`#mem-emot-chips [onclick*="${m.emotion}"]`)?.classList.add('active');
+}
+
+function deleteMemory(id) {
+  if (!confirm('Supprimer ce souvenir ?')) return;
+  S.memories = S.memories.filter(m => m.id !== id);
+  renderMemories();
+  renderDashPreviews();
+  updateCounts();
+  showToast('Souvenir supprimé.');
+}
+
+let memCatFilter = 'all';
+function setMemCat(btn, cat) {
+  document.querySelectorAll('#mem-filters .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  memCatFilter = cat;
+  renderMemories();
+}
+
+function renderMemories() {
+  const q = document.getElementById('mem-search-input').value.toLowerCase();
+  const grid = document.getElementById('mem-grid');
+  let mems = S.memories;
+  if (memCatFilter !== 'all') mems = mems.filter(m => m.category === memCatFilter);
+  if (q) mems = mems.filter(m => m.title.toLowerCase().includes(q) || m.content.toLowerCase().includes(q));
+  if (!mems.length) {
+    grid.innerHTML = `<div class="empty-card" style="grid-column:1/-1">${q || memCatFilter !== 'all' ? 'Aucun souvenir ne correspond.' : "Aucun souvenir pour l'instant."}<br><button class="btn-ghost" onclick="showNewMemory()">+ Ajouter un souvenir</button></div>`;
+    return;
+  }
+  grid.innerHTML = mems.map(m => `
+    <div class="mem-card card-hover">
+      <div class="mem-card-actions">
+        <button class="mem-action-btn mem-edit-btn" onclick="editMemory('${m.id}')" title="Modifier"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="mem-action-btn mem-del-btn" onclick="deleteMemory('${m.id}')" title="Supprimer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
+      </div>
+      <div class="mem-title">${esc(m.title)}</div>
+      <div class="mem-text">${esc(m.content.slice(0,130))}${m.content.length>130?'…':''}</div>
+      <div class="mem-tags">
+        <span class="mem-tag" style="background:var(--green-pale);color:var(--green3);border-color:#c8dcc8">${CAT_LABELS[m.category]||m.category}</span>
+        ${m.emotion ? `<span class="mem-tag" style="background:#fdf6ec;color:#6a4818;border-color:#e8d0a8">${EMOT_LABELS[m.emotion]||m.emotion}</span>` : ''}
+        ${m.memory_date ? `<span class="mem-tag" style="background:#f4f2ee;color:#4a4038;border-color:#c8c2b4">${m.memory_date}</span>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// JOURNAL
+// ═══════════════════════════════════════════
+function showNewJournal() {
+  document.getElementById('journal-list-view').style.display = 'none';
+  document.getElementById('journal-form-view').style.display = 'block';
+  document.getElementById('journal-form-title').textContent = 'Nouvelle entrée';
+  document.getElementById('journal-content').value = '';
+  document.getElementById('journal-edit-id').value = '';
+  S.journalMood = null;
+  document.querySelectorAll('#journal-mood-chips .emot-chip').forEach(c => c.classList.remove('active'));
+}
+
+function hideJournalForm() {
+  document.getElementById('journal-list-view').style.display = '';
+  document.getElementById('journal-form-view').style.display = 'none';
+}
+
+function toggleJMood(btn, mood) {
+  document.querySelectorAll('#journal-mood-chips .emot-chip').forEach(c => c.classList.remove('active'));
+  if (S.journalMood === mood) { S.journalMood = null; return; }
+  btn.classList.add('active');
+  S.journalMood = mood;
+}
+
+function saveJournal() {
+  const content = document.getElementById('journal-content').value.trim();
+  if (!content) { showToast('Veuillez écrire quelques mots.', true); return; }
+  const editId = document.getElementById('journal-edit-id').value;
+  const entry = { id: editId || Date.now().toString(), content, mood: S.journalMood, date: new Date() };
+  if (editId) {
+    const idx = S.journal.findIndex(j => j.id === editId);
+    if (idx > -1) S.journal[idx] = entry;
+  } else {
+    S.journal.unshift(entry);
+  }
+  hideJournalForm();
+  renderJournal();
+  renderDashPreviews();
+  updateCounts();
+  showToast('Entrée enregistrée.');
+}
+
+function editJournal(id) {
+  const j = S.journal.find(j => j.id === id);
+  if (!j) return;
+  document.getElementById('journal-list-view').style.display = 'none';
+  document.getElementById('journal-form-view').style.display = 'block';
+  document.getElementById('journal-form-title').textContent = "Modifier l'entrée";
+  document.getElementById('journal-content').value = j.content;
+  document.getElementById('journal-edit-id').value = j.id;
+  S.journalMood = j.mood || null;
+  document.querySelectorAll('#journal-mood-chips .emot-chip').forEach(c => c.classList.remove('active'));
+  if (j.mood) document.querySelector(`#journal-mood-chips [onclick*="${j.mood}"]`)?.classList.add('active');
+}
+
+function deleteJournal(id) {
+  if (!confirm('Supprimer cette entrée ?')) return;
+  S.journal = S.journal.filter(j => j.id !== id);
+  renderJournal();
+  renderDashPreviews();
+  updateCounts();
+  showToast('Entrée supprimée.');
+}
+
+let journalMoodFilter = 'all';
+function setJournalMood(btn, mood) {
+  document.querySelectorAll('#journal-mood-filters .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  journalMoodFilter = mood;
+  renderJournal();
+}
+
+function renderJournal() {
+  const list = document.getElementById('journal-list');
+  let entries = S.journal;
+  if (journalMoodFilter !== 'all') entries = entries.filter(e => e.mood === journalMoodFilter);
+  if (!entries.length) {
+    list.innerHTML = `<div class="empty-card">${journalMoodFilter !== 'all' ? 'Aucune entrée avec cette humeur.' : 'Votre journal est vide pour l\'instant.'}<br><button class="btn-ghost" onclick="showNewJournal()">+ Écrire une entrée</button></div>`;
+    return;
+  }
+  list.innerHTML = entries.map(e => {
+    const moodHtml = e.mood ? `<span class="chip" style="${MOOD_STYLE[e.mood]||''};cursor:default">${MOOD_LABELS[e.mood]||e.mood}</span>` : '';
+    return `<div class="journal-card">
+      <div class="journal-card-actions">
+        <button class="mem-action-btn mem-edit-btn" onclick="editJournal('${e.id}')" title="Modifier"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="mem-action-btn mem-del-btn" onclick="deleteJournal('${e.id}')" title="Supprimer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
+      </div>
+      <div class="journal-meta"><span class="journal-date">${fmtDate(e.date)}</span>${moodHtml}</div>
+      <div class="journal-text">${esc(e.content.slice(0,200))}${e.content.length>200?'…':''}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════
+function saveProfileSettings() {
+  S.profile.name = document.getElementById('set-firstname').value.trim() || S.profile.name;
+  S.profile.dname = document.getElementById('set-dname').value.trim() || S.profile.dname;
+  S.profile.rel = document.getElementById('set-rel').value;
+  updateDashboard();
+  showToast('Profil enregistré.');
+}
+
+// ═══════════════════════════════════════════
+// COUNTS
+// ═══════════════════════════════════════════
+function updateCounts() {
+  const mc = document.getElementById('mem-count-label');
+  if (mc) mc.textContent = S.memories.length + ' souvenir' + (S.memories.length !== 1 ? 's' : '');
+  const jc = document.getElementById('journal-count-label');
+  if (jc) jc.textContent = S.journal.length + ' entrée' + (S.journal.length !== 1 ? 's' : '');
+}
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = String(s);
+  return d.innerHTML;
+}
+
+function fmtDate(d) {
+  const days = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()];
+}
+
+function fmtRelative(d) {
+  const diff = Math.floor((Date.now() - d.getTime()) / 1000);
+  if (diff < 60) return "À l'instant";
+  if (diff < 3600) return Math.floor(diff/60) + ' min';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h';
+  if (diff < 172800) return 'Hier';
+  return fmtDate(d);
+}
+
+function fmtTime() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+let toastTimer;
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? 'var(--blush)' : 'var(--text)';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  setupApiKey();
+  loadVoices();
+
+  // STT support check
+  if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    const msg = document.getElementById('no-stt-msg');
+    if (msg) msg.style.display = 'block';
+  }
+
+  // API key prompt in settings if not set
+  const settingsCard = document.querySelector('.settings-card:last-of-type');
+  if (settingsCard) {
+    const apiKeySection = document.createElement('div');
+    apiKeySection.className = 'settings-row';
+    apiKeySection.innerHTML = `
+      <div class="settings-row-label" style="flex:1"><p>Clé API Anthropic <span>(optionnel)</span></p><span>Pour des réponses IA réelles. Commence par sk-ant-</span></div>
+    `;
+    settingsCard.parentNode.insertBefore(apiKeySection, settingsCard);
+    const apiInput = document.createElement('div');
+    apiInput.style.cssText = 'padding:14px 20px;display:flex;gap:8px;align-items:center';
+    apiInput.innerHTML = `<input type="password" id="api-key-input" class="input" placeholder="sk-ant-..." value="${S.apiKey}" style="flex:1"><button class="btn-primary btn-sm" onclick="saveApiKey()">Sauvegarder</button>`;
+    settingsCard.parentNode.insertBefore(apiInput, settingsCard);
+  }
+});
+
+function saveApiKey() {
+  const key = document.getElementById('api-key-input').value.trim();
+  S.apiKey = key;
+  if (key) localStorage.setItem('withu_api_key', key);
+  else localStorage.removeItem('withu_api_key');
+  showToast(key ? 'Clé API sauvegardée. Réponses IA activées.' : 'Clé API supprimée. Mode local activé.');
+}
+</script>
+</body>
+</html>
